@@ -80,7 +80,6 @@ public class UserService {
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setEmail(dto.getEmail());
-        user.setDateCreated(dto.getDateCreated());
         user.setLastLogin(dto.getLastLogin());
 
         user.getRoles().clear();
