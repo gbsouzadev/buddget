@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name= "tb_roles")
+@Table(name= "tb_role")
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
 

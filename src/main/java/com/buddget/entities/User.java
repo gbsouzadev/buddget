@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_users")
+@Table(name = "tb_user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,9 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
     private String password;
-    private Instant dateCreated;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant dateCreated = Instant.now();
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant lastLogin;
 
     @ManyToMany(fetch = FetchType.EAGER)
