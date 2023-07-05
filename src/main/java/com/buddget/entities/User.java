@@ -20,32 +20,12 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank(message = "Please inform your first name.")
     private String firstName;
-
-    @NotBlank(message = "Please inform your last name.")
     private String lastName;
-
     @Column(unique = true)
     private String email;
-
-    @Size(min = 8, message = "The password must be at least 8 characters long.")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[a-zA-Z\\d!@#$%^&*]{8,}$",
-            message = "The password does not meet the complexity requirements.")
-            /*
-            Pelo menos 8 caracteres de comprimento
-            Pelo menos uma letra maiúscula
-            Pelo menos uma letra minúscula
-            Pelo menos um número
-            Pelo menos um caractere especiail
-            */
     private String password;
-
-    @PastOrPresent(message = "Invalid date/time")
     private Instant dateCreated;
-
-    @PastOrPresent(message = "Invalid date/time")
     private Instant lastLogin;
 
     @ManyToMany(fetch = FetchType.EAGER)
