@@ -1,9 +1,11 @@
 package com.buddget.dto;
 
+import com.buddget.services.validation.UserInsertValid;
 import jakarta.validation.constraints.Pattern;
 
 import java.io.Serializable;
 
+@UserInsertValid
 public class UserInsertDTO extends UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
