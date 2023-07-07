@@ -3,6 +3,7 @@ package com.buddget.controllers;
 
 import com.buddget.dto.UserDTO;
 import com.buddget.dto.UserInsertDTO;
+import com.buddget.dto.UserUpdateDTO;
 import com.buddget.entities.User;
 import com.buddget.services.UserService;
 import jakarta.validation.Valid;
@@ -43,9 +44,9 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTO dto) {
-        dto = userService.update(id, dto);
-        return  ResponseEntity.ok().body(dto);
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto) {
+        UserDTO newDto = userService.update(id, dto);
+        return  ResponseEntity.ok().body(newDto);
     }
 
     @DeleteMapping(value = "/{id}")

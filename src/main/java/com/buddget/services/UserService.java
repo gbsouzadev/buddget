@@ -3,6 +3,7 @@ package com.buddget.services;
 import com.buddget.dto.RoleDTO;
 import com.buddget.dto.UserDTO;
 import com.buddget.dto.UserInsertDTO;
+import com.buddget.dto.UserUpdateDTO;
 import com.buddget.entities.Role;
 import com.buddget.entities.User;
 import com.buddget.repositories.RoleRepository;
@@ -55,7 +56,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
         try {
             User user = userRepository.getReferenceById(id);
             copyDtoToEntity(dto, user);
