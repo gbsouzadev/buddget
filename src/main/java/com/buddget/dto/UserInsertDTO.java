@@ -8,7 +8,7 @@ public class UserInsertDTO extends UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[a-zA-Z\\d!@#$%^&*]{8,}$",
-            message = "The password does not meet the complexity requirements.")
+            message = "Your password should be a minimum of 8 characters long and include at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character.")
     private String password;
             /*
             Pelo menos 8 caracteres de comprimento

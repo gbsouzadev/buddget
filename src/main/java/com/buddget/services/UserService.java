@@ -41,7 +41,7 @@ public class UserService {
     public UserDTO findById(Long id) {
         Optional<User> object = userRepository.findById(id);
         //User user = obj.get();
-        User user = object.orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = object.orElseThrow(() -> new ResourceNotFoundException("ID '" + id + "' not found"));
         return new UserDTO(user);
     }
 
@@ -63,14 +63,14 @@ public class UserService {
             return new UserDTO(user);
         }
         catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Id " + id + " not found");
+            throw new ResourceNotFoundException("ID '" + id + "' not found");
         }
     }
 
     public void delete(Long id) {
         try {
             if (userRepository.existsById(id)) {userRepository.deleteById(id);}
-            else {throw new ResourceNotFoundException("Id not found " + id);}
+            else {throw new ResourceNotFoundException("ID '" + id + "' not found");}
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException("Integrity violation");
         }
