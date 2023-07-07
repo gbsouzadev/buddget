@@ -1,11 +1,22 @@
 package com.buddget.dto;
 
+import jakarta.validation.constraints.Pattern;
+
 import java.io.Serializable;
 
 public class UserInsertDTO extends UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[a-zA-Z\\d!@#$%^&*]{8,}$",
+            message = "The password does not meet the complexity requirements.")
     private String password;
+            /*
+            Pelo menos 8 caracteres de comprimento
+            Pelo menos uma letra maiúscula
+            Pelo menos uma letra minúscula
+            Pelo menos um número
+            Pelo menos um caractere especiail
+            */
 
     public UserInsertDTO() {
         super();

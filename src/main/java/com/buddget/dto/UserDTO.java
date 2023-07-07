@@ -14,8 +14,12 @@ public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @NotBlank(message = "This field is required.")
     private String firstName;
+    @NotBlank(message = "This field is required.")
     private String lastName;
+    @Email(message = "Please enter a valid email address.")
     private String email;
     private Instant dateCreated;
     private Instant lastLogin;
