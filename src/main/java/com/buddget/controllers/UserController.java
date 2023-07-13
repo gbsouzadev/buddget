@@ -4,7 +4,6 @@ package com.buddget.controllers;
 import com.buddget.dto.UserDTO;
 import com.buddget.dto.UserInsertDTO;
 import com.buddget.dto.UserUpdateDTO;
-import com.buddget.entities.User;
 import com.buddget.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

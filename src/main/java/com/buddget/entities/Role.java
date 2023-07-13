@@ -1,7 +1,6 @@
 package com.buddget.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.Objects;

@@ -1,8 +1,6 @@
 package com.buddget.dto;
 
-import com.buddget.entities.Role;
 import com.buddget.entities.User;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
