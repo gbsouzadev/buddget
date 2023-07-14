@@ -1,4 +1,4 @@
-package com.buddget.repositories;
+package com.buddget.user;
 
 import com.buddget.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

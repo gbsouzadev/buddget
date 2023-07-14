@@ -5,6 +5,6 @@ import com.buddget.services.validation.UserUpdateValid;
 import java.io.Serializable;
 
 @UserUpdateValid
-public class UserUpdateDTO extends UserDTO implements Serializable {
+public class UserUpdateDTO  implements Serializable {
     private static final long serialVersionUID = 1L;
 }

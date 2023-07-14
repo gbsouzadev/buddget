@@ -1,14 +1,11 @@
-package com.buddget.controllers;
+package com.buddget.user.management;
 
 
-import com.buddget.dto.UserDTO;
-import com.buddget.dto.UserInsertDTO;
-import com.buddget.dto.UserUpdateDTO;
-import com.buddget.services.UserService;
+import com.buddget.entities.User;
+import com.buddget.user.auth.UserAuthDTO;
+import com.buddget.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,12 +13,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserController {
+@RequestMapping(value = "/api/users")
+public class UserManagementController {
 
     @Autowired
     private UserService userService;
-
+/*
     @GetMapping
     public ResponseEntity<Page<UserDTO>> findAllPaged(Pageable pageable) {
         Page<UserDTO> list = userService.findAllPaged(pageable);
@@ -35,11 +32,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto) {
-        UserDTO userDTO = userService.insert(dto);
+    public ResponseEntity<UserAuthDTO.Response.SignUp> insert(@Valid @RequestBody UserAuthDTO.Request.SignUp payload) {
+        User user = userService.signUp(payload);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(userDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(userDTO);
+                .buildAndExpand(user.getId()).toUri();
+        return ResponseEntity.created(uri).body(new UserAuthDTO.Response.SignUp(user.getId()));
     }
 
     @PutMapping(value = "/{id}")
@@ -53,5 +50,5 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
+*/
 }

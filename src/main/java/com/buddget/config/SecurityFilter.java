@@ -1,7 +1,7 @@
 package com.buddget.config;
 
-import com.buddget.repositories.UserRepository;
-import com.buddget.services.TokenService;
+import com.buddget.user.UserRepository;
+import com.buddget.user.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
