@@ -3,8 +3,6 @@ package com.buddget.user.auth;
 import com.buddget.controllers.exceptions.FieldMessage;
 import com.buddget.entities.User;
 import com.buddget.user.UserRepository;
-import com.buddget.user.auth.UserAuthDTO;
-import com.buddget.user.auth.UserSignUpValid;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserSignUpValidator implements ConstraintValidator<UserSignUpValid, UserAuthDTO.Request.SignUp> {
+public class UserSignUpValidator implements ConstraintValidator<UserSignUpValid, UserSignUpRequest> {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,10 +21,10 @@ public class UserSignUpValidator implements ConstraintValidator<UserSignUpValid,
     }
 
     @Override
-    public boolean isValid(UserAuthDTO.Request.SignUp signUp, ConstraintValidatorContext context) {
+    public boolean isValid(UserSignUpRequest payload, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
-        User user = userRepository.findByEmail(signUp.email());
+        User user = userRepository.findByEmail(payload.email());
         if (user != null) {
             list.add(new FieldMessage("email", "The email address is already registered."));
         }

@@ -30,20 +30,20 @@ public class AuthenticationController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<UserAuthDTO.Response.SignIn> login(@RequestBody @Valid UserAuthDTO.Request.SignIn payload) {
+    public ResponseEntity<UserSignInResponse> login(@RequestBody @Valid UserSignInRequest payload) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(payload.email(), payload.password());
         var auth = authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new UserAuthDTO.Response.SignIn(token));
+        return ResponseEntity.ok(new UserSignInResponse(token));
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<UserAuthDTO.Response.SignUp> login(@RequestBody @Valid UserAuthDTO.Request.SignUp payload) {
+    public ResponseEntity<UserSignUpResponse> login(@RequestBody @Valid UserSignUpRequest payload) {
         User user = userService.signUp(payload.firstName(), payload.lastName(), payload.email(), payload.password());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(user.getId()).toUri();
-        return ResponseEntity.created(uri).body(new UserAuthDTO.Response.SignUp(user.getId()));
+        return ResponseEntity.created(uri).body(new UserSignUpResponse(user.getId()));
     }
 }

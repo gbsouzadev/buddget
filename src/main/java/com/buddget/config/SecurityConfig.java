@@ -38,12 +38,12 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/auth/signUp").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/api/users/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
+                    .requestMatchers(HttpMethod.POST, "/auth/sign-up").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyAuthority("ROLE_ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/users/**").hasAnyAuthority("ROLE_ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyAuthority("ROLE_ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyAuthority("ROLE_ADMIN")
+                    .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
