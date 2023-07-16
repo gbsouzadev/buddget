@@ -18,26 +18,26 @@ public class UserManagementController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<Page<UserDetailsResponse>> findAllPaged(Pageable pageable) {
+    public ResponseEntity<Page<UserResponse>> findAllPaged(Pageable pageable) {
         Page<User> list = userService.findAllPaged(pageable);
-        return ResponseEntity.ok().body(list.map(user -> new UserDetailsResponse(user.getFirstName(),
+        return ResponseEntity.ok().body(list.map(user -> new UserResponse(user.getFirstName(),
                 user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles())));
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDetailsResponse> findById(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> findById(@PathVariable Long id) {
         User user = userService.findById(id);
-        return ResponseEntity.ok().body(new UserDetailsResponse(user.getFirstName(),
+        return ResponseEntity.ok().body(new UserResponse(user.getFirstName(),
                 user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles()));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDetailsResponse> update(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest payload) {
+    public ResponseEntity<UserResponse> update(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest payload) {
         User user = userService.update(id, payload.firstName(), payload.lastName(), payload.email(), payload.password(), payload.roles());
-        return  ResponseEntity.ok().body(new UserDetailsResponse(user.getFirstName(),
+        return  ResponseEntity.ok().body(new UserResponse(user.getFirstName(),
                 user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles()));
     }
-    
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);

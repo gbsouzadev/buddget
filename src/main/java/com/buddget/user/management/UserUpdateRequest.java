@@ -1,12 +1,12 @@
 package com.buddget.user.management;
 
-import com.buddget.entities.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 import java.util.Set;
 
+@UserUpdateValid
 public record UserUpdateRequest(@NotBlank(message = "This field is required.") String firstName,
                                 @NotBlank(message = "This field is required.") String lastName,
                                 @Email(message = "Please enter a valid email address.") String email,

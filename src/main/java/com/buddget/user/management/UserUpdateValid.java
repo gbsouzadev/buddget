@@ -1,4 +1,4 @@
-package com.buddget.services.validation;
+package com.buddget.user.management;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

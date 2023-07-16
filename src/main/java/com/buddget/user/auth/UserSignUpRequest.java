@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+@UserSignUpValid
 public record UserSignUpRequest(@NotBlank(message = "This field is required.") String firstName,
                                 @NotBlank(message = "This field is required.") String lastName,
                                 @Email(message = "Please enter a valid email address.") String email,
