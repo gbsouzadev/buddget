@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -57,6 +58,13 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByEmail(email);
         if (user != null) {return user;}
         throw new ResourceNotFoundException("User '" + email + "' not found");
+    }
+
+    @Transactional
+    public void signIn(String email){
+        User user = userRepository.getReferenceByEmail(email);
+        user.setLastLogin(Instant.now());
+        userRepository.save(user);
     }
 
     @Transactional

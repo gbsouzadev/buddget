@@ -33,9 +33,8 @@ public class AuthenticationController {
     public ResponseEntity<UserSignInResponse> login(@RequestBody @Valid UserSignInRequest payload) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(payload.email(), payload.password());
         var auth = authenticationManager.authenticate(usernamePassword);
-
         var token = tokenService.generateToken((User) auth.getPrincipal());
-
+        userService.signIn(payload.email());
         return ResponseEntity.ok(new UserSignInResponse(token));
     }
 
