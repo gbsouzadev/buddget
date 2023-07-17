@@ -7,10 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -19,8 +16,8 @@ public class User implements UserDetails, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String firstName;
     private String lastName;
     @Column(unique = true)
@@ -40,7 +37,7 @@ public class User implements UserDetails, Serializable {
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password, Instant dateCreated, Instant lastLogin) {
+    public User(UUID id, String firstName, String lastName, String email, String password, Instant dateCreated, Instant lastLogin) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,11 +47,11 @@ public class User implements UserDetails, Serializable {
         this.lastLogin = lastLogin;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

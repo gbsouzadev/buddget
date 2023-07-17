@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -43,12 +44,19 @@ public class UserService implements UserDetailsService {
         return list;
     }
 
-    @Transactional(readOnly = true)
-    public User findById(Long id) {
-        Optional<User> object = userRepository.findById(id);
-        //User user = obj.get();
-        User user = object.orElseThrow(() -> new ResourceNotFoundException("ID '" + id + "' not found"));
-        return user;
+//    @Transactional(readOnly = true)
+//    public User findById(UUID id) {
+//        Optional<User> object = userRepository.findById(id);
+//        //User user = obj.get();
+//        User user = object.orElseThrow(() -> new ResourceNotFoundException("ID '" + id + "' not found"));
+//        return user;
+//    }
+
+    @Transactional
+    public User findByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {return user;}
+        throw new ResourceNotFoundException("User '" + email + "' not found");
     }
 
     @Transactional
@@ -66,9 +74,9 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User update(Long id, String firstName, String lastName, String email, String password, Set<String> roles) {
+    public User update(String email, String newEmail, String firstName, String lastName, String password, Set<String> roles) {
         try {
-            User user = userRepository.getReferenceById(id);
+            User user = userRepository.getReferenceByEmail(email);
             user.getRoles().clear();
             for (String role : roles) {
                 Role userRole = roleRepository.findByAuthority(role);
@@ -76,7 +84,7 @@ public class UserService implements UserDetailsService {
             }
             user.setFirstName(firstName);
             user.setLastName(lastName);
-            user.setEmail(email);
+            user.setEmail(newEmail);
             user.setLastLogin(null);
             user.setPassword(passwordEncoder.encode(password));
             user = userRepository.save(user);
@@ -86,7 +94,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         try {
             if (userRepository.existsById(id)) {
                 userRepository.deleteById(id);

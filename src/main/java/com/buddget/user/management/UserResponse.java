@@ -1,15 +1,11 @@
 package com.buddget.user.management;
 
 import com.buddget.entities.Role;
-import jakarta.validation.constraints.*;
 
 import java.time.Instant;
 import java.util.Set;
+import java.util.UUID;
 
-public record UserResponse(@NotBlank(message = "This field is required.") String firstName,
-                           @NotBlank(message = "This field is required.") String lastName,
-                           @Email(message = "Please enter a valid email address.") String email,
-                           Instant dateCreated,
-                           Instant lastLogin,
+public record UserResponse(UUID id, String firstName, String lastName, String email, Instant dateCreated, Instant lastLogin,
                            Set<Role> roles) {
 }
