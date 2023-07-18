@@ -39,7 +39,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<UserSignUpResponse> login(@RequestBody @Valid UserSignUpRequest payload) {
+    public ResponseEntity<UserSignUpResponse> signUp(@RequestBody @Valid UserSignUpRequest payload) {
         User user = userService.signUp(payload.firstName(), payload.lastName(), payload.email(), payload.password());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(user.getId()).toUri();
