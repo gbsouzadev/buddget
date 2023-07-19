@@ -5,24 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb89d0fa-9fdf-406b-b31c-cf974d49f26b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/buddget/email/EmailService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/buddget/entities/EmailToken.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/buddget/repositories/EmailTokenRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/buddget/user/EmailTokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/buddget/config/SecurityFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/buddget/config/SecurityFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/buddget/controllers/exceptions/ControllerExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/buddget/controllers/exceptions/ControllerExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/buddget/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/buddget/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/buddget/user/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/buddget/user/TokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/buddget/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/buddget/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/buddget/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/buddget/user/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/buddget/user/auth/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/buddget/user/auth/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/buddget/user/auth/UserSignUpResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/buddget/user/auth/UserSignUpResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/buddget/user/management/UserManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/buddget/user/management/UserManagementController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +51,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Gabri/Desktop/workatusersignup/buddget"
+    "last_opened_file_path": "C:/Users/Gabri/Documents/buddget/buddget"
   }
 }]]></component>
   <component name="RecentsManager">

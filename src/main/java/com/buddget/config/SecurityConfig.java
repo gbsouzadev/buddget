@@ -25,7 +25,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> {
-            web.ignoring().requestMatchers("/index.html", "/assets/index*", "/**");
+            web.ignoring().requestMatchers("/index.html", "/assets/index*");
         };
     }
 
@@ -41,7 +41,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/api/users/**").hasAnyAuthority("ROLE_ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyAuthority("ROLE_ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyAuthority("ROLE_ADMIN")
-                    .anyRequest().permitAll()
+                    .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -54,21 +55,14 @@ public class UserService implements UserDetailsService {
         return list;
     }
 
-//    @Transactional(readOnly = true)
-//    public User findById(UUID id) {
-//        Optional<User> object = userRepository.findById(id);
-//        //User user = obj.get();
-//        User user = object.orElseThrow(() -> new ResourceNotFoundException("ID '" + id + "' not found"));
-//        return user;
-//    }
-
-    @Transactional
-    public User findByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user != null) {return user;}
-        throw new ResourceNotFoundException("User '" + email + "' not found");
+    @Transactional(readOnly = true)
+    public User findById(UUID id) {
+        Optional<User> object = userRepository.findById(id);
+        //User user = obj.get();
+        User user = object.orElseThrow(() -> new ResourceNotFoundException("ID '" + id + "' not found"));
+        return user;
     }
-
+    
     @Transactional
     public void signIn(String email){
         User user = userRepository.getReferenceByEmail(email);

@@ -27,22 +27,14 @@ public class UserManagementController {
                 user.getLocked(), user.getEnabled())));
     }
 
-//    @GetMapping(value = "/{id}")
-//    public ResponseEntity<UserResponse> findById(@PathVariable UUID id) {
-//        User user = userService.findById(id);
-//        return ResponseEntity.ok().body(new UserResponse(user.getId(), user.getFirstName(),
-//                user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles()));
-//    }
-
-    @PostMapping("/find-by-email")
-    public ResponseEntity<UserResponse> findByEmail(@Valid @RequestBody UserFindRequest payload) {
-        System.out.println("Entrou no controller");
-        User user = userService.findByEmail(payload.email());
-        System.out.println("Voltou do controller");
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserResponse> findById(@PathVariable UUID id) {
+        User user = userService.findById(id);
         return ResponseEntity.ok().body(new UserResponse(user.getId(), user.getFirstName(),
                 user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles(),
                 user.getLocked(), user.getEnabled()));
     }
+
 
     @PutMapping("/update")
     public ResponseEntity<UserResponse> update(@Valid @RequestBody UserUpdateRequest payload) {
