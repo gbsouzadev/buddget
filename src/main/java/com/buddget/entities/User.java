@@ -27,6 +27,8 @@ public class User implements UserDetails, Serializable {
     private Instant dateCreated = Instant.now();
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant lastLogin;
+    private Boolean locked = false;
+    private Boolean enabled = false;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_user_role",
@@ -107,6 +109,22 @@ public class User implements UserDetails, Serializable {
         return roles;
     }
 
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,7 +155,7 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
@@ -147,7 +165,7 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
 }

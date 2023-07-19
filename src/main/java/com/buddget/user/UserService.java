@@ -1,9 +1,12 @@
 package com.buddget.user;
 
+import com.buddget.email.EmailService;
+import com.buddget.entities.EmailToken;
 import com.buddget.entities.Role;
 import com.buddget.entities.User;
+import com.buddget.repositories.EmailTokenRepository;
 import com.buddget.repositories.RoleRepository;
-import com.buddget.user.management.UserUpdateRequest;
+import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,8 +23,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.Instant;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -38,6 +42,11 @@ public class UserService implements UserDetailsService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private EmailTokenRepository emailTokenRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Transactional(readOnly = true)
     public Page<User> findAllPaged(Pageable pageable) {
@@ -68,7 +77,8 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User signUp(String firstName, String lastName, String email, String password) {
+    public String signUp(String firstName, String lastName, String email, String password) throws MessagingException {
+
         Role userRole = roleRepository.findByAuthority("ROLE_OPERATOR");
         User user = new User();
         user.setFirstName(firstName);
@@ -78,7 +88,22 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(password));
         user.getRoles().add(userRole);
         user = userRepository.save(user);
-        return user;
+
+        String token = UUID.randomUUID().toString();
+        EmailToken emailToken = new EmailToken(
+                token, Instant.now(),
+                Instant.now().plus(Duration.ofMinutes(15)),
+                user);
+
+        emailToken = emailTokenRepository.save(emailToken);
+
+        String link = "http://localhost:8080/auth/confirm?token=" + token;
+        emailService.sendEmailConfirmation(
+                user.getEmail(),
+                emailService.buildEmail(
+                        user.getFirstName(), link));
+
+        return token;
     }
 
     @Transactional
@@ -123,5 +148,12 @@ public class UserService implements UserDetailsService {
         }
         logger.info("User found: " + username);
         return user;
+    }
+
+    @Transactional
+    public void enableAppUser(String email) {
+        User user = userRepository.getReferenceByEmail(email);
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 }
