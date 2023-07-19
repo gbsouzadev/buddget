@@ -1,21 +1,17 @@
-package com.buddget.services.validation;
+package com.buddget.user.management;
 
 import com.buddget.controllers.exceptions.FieldMessage;
-import com.buddget.dto.UserUpdateDTO;
 import com.buddget.entities.User;
-import com.buddget.repositories.UserRepository;
+import com.buddget.user.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.HandlerMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-
-public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid, UserUpdateDTO> {
+public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid, UserUpdateRequest> {
 
     @Autowired
     private HttpServletRequest servletRequest;
@@ -28,16 +24,14 @@ public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid,
     }
 
     @Override
-    public boolean isValid(UserUpdateDTO dto, ConstraintValidatorContext context) {
-
-        @SuppressWarnings("unchecked")
-        var uriVars = (Map<String, String>) servletRequest.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-        long userId = Long.parseLong(uriVars.get("id"));
+    public boolean isValid(UserUpdateRequest payload, ConstraintValidatorContext context) {
 
         List<FieldMessage> list = new ArrayList<>();
 
-        User user = userRepository.findByEmail(dto.getEmail());
-        if(user != null && userId != user.getId()) {
+        User user = userRepository.findByEmail(payload.email());
+        User verifier = userRepository.findByEmail(payload.newEmail());
+
+        if(verifier != null && verifier.getEmail() != user.getEmail()) {
             list.add(new FieldMessage("email", "The email address is already registered."));
         }
 

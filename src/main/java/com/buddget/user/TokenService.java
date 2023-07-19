@@ -1,25 +1,29 @@
-package com.buddget.services;
+package com.buddget.user;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.buddget.entities.User;
+import com.buddget.repositories.EmailTokenRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 
 @Service
 public class TokenService {
 
+    @Autowired
+    EmailTokenRepository emailTokenRepository;
+
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateToken(User user) {
+    public String generateJwtToken(User user) {
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
@@ -33,7 +37,7 @@ public class TokenService {
         }
     }
 
-    public String validateToken(String token) {
+    public String validateJwtToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)

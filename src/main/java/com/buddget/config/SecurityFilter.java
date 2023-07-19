@@ -1,7 +1,7 @@
 package com.buddget.config;
 
-import com.buddget.repositories.UserRepository;
-import com.buddget.services.TokenService;
+import com.buddget.user.UserRepository;
+import com.buddget.user.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,9 +26,9 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = recoverToken(request);
+        var token = recoverJwtToken(request);
         if(token != null){
-            var subject = tokenService.validateToken(token);
+            var subject = tokenService.validateJwtToken(token);
             UserDetails user = userRepository.findByEmail(subject);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
@@ -37,7 +37,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String recoverToken(HttpServletRequest request){
+    private String recoverJwtToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");
         if (authHeader == null) return null;
         return authHeader.replace("Bearer ", "");
