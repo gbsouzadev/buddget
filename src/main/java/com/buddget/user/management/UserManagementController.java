@@ -23,7 +23,8 @@ public class UserManagementController {
     public ResponseEntity<Page<UserResponse>> findAllPaged(Pageable pageable) {
         Page<User> list = userService.findAllPaged(pageable);
         return ResponseEntity.ok().body(list.map(user -> new UserResponse(user.getId(), user.getFirstName(),
-                user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles())));
+                user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles(),
+                user.getLocked(), user.getEnabled())));
     }
 
 //    @GetMapping(value = "/{id}")
@@ -39,14 +40,16 @@ public class UserManagementController {
         User user = userService.findByEmail(payload.email());
         System.out.println("Voltou do controller");
         return ResponseEntity.ok().body(new UserResponse(user.getId(), user.getFirstName(),
-                user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles()));
+                user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles(),
+                user.getLocked(), user.getEnabled()));
     }
 
     @PutMapping("/update")
     public ResponseEntity<UserResponse> update(@Valid @RequestBody UserUpdateRequest payload) {
         User user = userService.update(payload.email(), payload.newEmail(), payload.firstName(), payload.lastName(), payload.password(), payload.roles());
         return  ResponseEntity.ok().body(new UserResponse(user.getId(), user.getFirstName(),
-                user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles()));
+                user.getLastName(), user.getEmail(), user.getDateCreated(), user.getLastLogin(), user.getRoles(),
+                user.getLocked(), user.getEnabled()));
     }
 
     @DeleteMapping(value = "/{id}")
