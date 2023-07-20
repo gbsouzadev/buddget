@@ -16,5 +16,6 @@ public class Application implements WebMvcConfigurer {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index.html");
 		registry.addViewController("/login").setViewName("index.html");
+		registry.addViewController("/sign-up").setViewName("index.html");
 	}
 }
