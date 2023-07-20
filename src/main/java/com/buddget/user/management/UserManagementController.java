@@ -35,7 +35,6 @@ public class UserManagementController {
                 user.getLocked(), user.getEnabled()));
     }
 
-
     @PutMapping("/update")
     public ResponseEntity<UserResponse> update(@Valid @RequestBody UserUpdateRequest payload) {
         User user = userService.update(payload.email(), payload.newEmail(), payload.firstName(), payload.lastName(), payload.password(), payload.roles());
