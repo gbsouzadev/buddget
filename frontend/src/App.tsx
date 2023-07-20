@@ -9,7 +9,7 @@ import { LoginScreen } from './LoginScreen'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <div>Hello World!</div>,
   },
   {
     path: "/login",
