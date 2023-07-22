@@ -24,7 +24,8 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> {
-            web.ignoring().requestMatchers("/index.html", "/assets/index*",  "/", "/login", "/sign-up");
+            web.ignoring().requestMatchers("/index.html", "/assets/index*",
+                    "/", "/login", "/sign-up", "/profile", "/favicon.ico");
         };
     }
 

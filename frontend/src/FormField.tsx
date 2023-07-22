@@ -1,3 +1,5 @@
+
+
 export function FormField(props: any) {
     return (
       <div>
@@ -22,7 +24,7 @@ export function FormField(props: any) {
         <div className="mt-2">
           <input
             id={props.id}
-            name={props.type}
+            {...props.register(props.name)}
             type={props.name}
             autoComplete={props.autoComplete}
             required={props.required}
