@@ -1,6 +1,34 @@
 import { FormField } from "./FormField";
+import { useForm, RegisterOptions } from "react-hook-form";
+
+type FormValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+};
 
 export function SignUpScreen() {
+
+  const { register, handleSubmit, formState } = useForm<FormValues>();
+  
+  const submitForm = (data: FormValues) => {
+
+    if (formState.errors.repeatPassword?.type === 'validate') {
+      console.log("error: ", formState.errors.repeatPassword.message)
+    } else {
+      console.log(data);
+    }
+  };
+
+  const repeatPasswordValidation: RegisterOptions<FormValues> = {
+    validate: {
+    equalToPassword: (_, values) => 
+      values.password === values.repeatPassword
+    }
+  }
+  
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -15,21 +43,26 @@ export function SignUpScreen() {
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form 
+            className="space-y-6" 
+            onSubmit={handleSubmit(submitForm)}
+            >
             <FormField
               id="firstName"
               name="firstName"
-              type="firstName"
+              type="text"
               autoComplete="firstName"
               required
+              register={register}
             >
               First name
             </FormField>
             <FormField
               id="lastName"
               name="lastName"
-              type="lastName"
+              type="text"
               autoComplete="lastName"
+              register={register}
               required
             >
               Last name
@@ -39,6 +72,7 @@ export function SignUpScreen() {
               name="email"
               type="email"
               autoComplete="email"
+              register={register}
               required
             >
               Email address
@@ -48,6 +82,7 @@ export function SignUpScreen() {
               name="password"
               type="password"
               autoComplete="password"
+              register={register}
               required
             >
               Password
@@ -55,9 +90,11 @@ export function SignUpScreen() {
             <FormField
               id="repeatPassword"
               name="repeatPassword"
-              type="repeatPassword"
+              type="password"
               autoComplete="repeatPassword"
+              register={register}
               required
+              registerOptions={repeatPasswordValidation}
             >
               Repeat your password
             </FormField>

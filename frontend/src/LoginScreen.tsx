@@ -23,6 +23,8 @@ export function LoginScreen() {
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<FormValues>();
 
+  
+
   // redirect authenticated user to profile screen
   useEffect(() => {
     if (userInfo) {
@@ -50,7 +52,6 @@ export function LoginScreen() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
             className="space-y-6"
-            action="POST"
             onSubmit={handleSubmit(submitForm)}
           >
             <FormField
@@ -87,8 +88,8 @@ export function LoginScreen() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
-            <a
-              href="/sign-up"
+            <a              
+              onClick={() => navigate("/sign-up")}
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Sign up for free
