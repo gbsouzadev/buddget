@@ -43,7 +43,7 @@ public class AuthenticationController {
                 payload.password())));
     }
 
-    @GetMapping(path = "confirm")
+    @GetMapping(path = "confirm-email")
     public ResponseEntity<String> confirm(@RequestParam("token") String token) {
         return ResponseEntity.ok().body(emailTokenService.confirmEmailToken(token));
     }
