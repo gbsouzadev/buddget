@@ -5,8 +5,10 @@ import com.buddget.user.EmailTokenService;
 import com.buddget.user.TokenService;
 import com.buddget.user.UserService;
 import jakarta.mail.MessagingException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,8 +45,13 @@ public class AuthenticationController {
                 payload.password())));
     }
 
-    @GetMapping(path = "confirm")
+    @GetMapping(path = "confirm-email")
     public ResponseEntity<String> confirm(@RequestParam("token") String token) {
         return ResponseEntity.ok().body(emailTokenService.confirmEmailToken(token));
+    }
+
+    @PostMapping("/resend-email")
+    public ResponseEntity<ResendEmailResponse> resendEmail(@RequestBody @Valid ResendEmailRequest payload) throws MessagingException, ResourceNotFoundException {
+        return ResponseEntity.ok().body(new ResendEmailResponse(userService.resendEmail(payload.email())));
     }
 }
