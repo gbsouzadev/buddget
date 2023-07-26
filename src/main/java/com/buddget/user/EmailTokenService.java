@@ -1,12 +1,15 @@
 package com.buddget.user;
 
 import com.buddget.entities.EmailToken;
+import com.buddget.entities.User;
 import com.buddget.repositories.EmailTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.Instant;
+import java.util.UUID;
 
 @Service
 public class EmailTokenService {
@@ -40,4 +43,5 @@ public class EmailTokenService {
         userService.enableAppUser(emailToken.getUser().getEmail());
         return "confirmed";
     }
+
 }

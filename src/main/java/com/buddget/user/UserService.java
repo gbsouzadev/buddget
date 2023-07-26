@@ -82,15 +82,9 @@ public class UserService implements UserDetailsService {
         user.getRoles().add(userRole);
         user = userRepository.save(user);
 
-        String token = UUID.randomUUID().toString();
-        EmailToken emailToken = new EmailToken(
-                token, Instant.now(),
-                Instant.now().plus(Duration.ofMinutes(15)),
-                user);
-
-        emailToken = emailTokenRepository.save(emailToken);
-
+        String token = this.generateEmailToken(user);
         String link = "http://localhost:8080/auth/confirm?token=" + token;
+
         emailService.sendEmailConfirmation(
                 user.getEmail(),
                 emailService.buildEmail(
@@ -151,25 +145,30 @@ public class UserService implements UserDetailsService {
     }
 
     public String resendEmail(String email) throws MessagingException, ResourceNotFoundException {
-            User user = userRepository.getReferenceByEmail(email);
-            if (user == null) throw new ResourceNotFoundException("User '" + email + "' not found");
-            if (user.isEnabled()) throw new IllegalStateException("Email '" + email + "' has already been confirmed");
+        User user = userRepository.getReferenceByEmail(email);
+        if (user == null) throw new ResourceNotFoundException("User '" + email + "' not found");
+        if (user.isEnabled()) throw new IllegalStateException("Email '" + email + "' has already been confirmed");
 
+        String token = this.generateEmailToken(user);
+        String link = "http://localhost:8080/auth/confirm?token=" + token;
 
-            String token = UUID.randomUUID().toString();
-            EmailToken emailToken = new EmailToken(
-                    token, Instant.now(),
-                    Instant.now().plus(Duration.ofMinutes(15)),
-                    user);
+        emailService.sendEmailConfirmation(
+                user.getEmail(),
+                emailService.buildEmail(
+                        user.getFirstName(), link));
+        return token;
+    }
 
-            emailToken = emailTokenRepository.save(emailToken);
+    @Transactional
+    public String generateEmailToken(User user) {
+        String token = UUID.randomUUID().toString();
+        EmailToken emailToken = new EmailToken(
+                token, Instant.now(),
+                Instant.now().plus(Duration.ofMinutes(15)),
+                user);
 
-            String link = "http://localhost:8080/auth/confirm?token=" + token;
-            emailService.sendEmailConfirmation(
-                    user.getEmail(),
-                    emailService.buildEmail(
-                            user.getFirstName(), link));
+        emailToken = emailTokenRepository.save(emailToken);
 
-            return token;
+        return token;
     }
 }
